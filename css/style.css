@@ -1,0 +1,121 @@
+
+
+  :root { /* Sets styles for every aspect of the website with the var command. This makes it easy to update stylings in one place */
+    --ink: #2c501c;                          /* Primary text color */
+    --muted: #1e3825;                        /* Secondary text color (passes AA) */
+    --bg: linear-gradient(90deg, rgba(153, 172, 86, 0.959), rgb(0, 97, 0));                        /* Page background color */
+    --card: linear-gradient( rgb(158, 255, 179), rgb(0, 128, 100));                         /* Card background color */
+    --line: rgba(117, 180, 0, 0.986);           /* Subtle border color */
+    --shadow: 0 10px 22px rgba(0, 0, 0, 0.37);/* Card shadow seperates it from the background */
+    --radius: 12px;                       /* Default corner radius */
+  }
+
+  /* Box-sizing reset: padding no longer adds to total width */
+  * { box-sizing: border-box; }
+
+  /* =========================================
+     Using clamps allows for content to be aligned
+     automatically without the newwd of multiple 
+     media queries.
+     ========================================= */
+  body {
+    margin: 0;                                  /* Removes default margin */
+    font-family: Arial, Helvetica, sans-serif;  /* Clean sans-serif stack */
+    background: var(--bg);
+    color: var(--ink);
+
+    /* clamp(min, fluid, max):
+       16px floor keeps body readable on phones,
+       1.2vw scales with the screen,
+       20px ceiling stops it growing too large. */
+    font-size: clamp(18px, 1.4vw, 21px);
+
+    line-height: 1.6;                           /* Comfortable reading */
+  }
+
+  
+  .container { /* Centers content and prevents text from growing to large on bigger displays. Also features padding that scales dynamicaly with clamp */
+    max-width: 980px;       /* Prevents overly wide text lines */
+    margin: 0 auto;         /* Centers horizontally */
+    padding: clamp(16px, 3vw, 32px);
+  }
+
+  /* =========================================
+     Custom clamps for all headers, keeping them big for all screen sizes
+     ========================================= */
+  h1 {
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;          /* Slight tightening for headlines */
+    font-size: clamp(28px, 4vw, 56px);
+    line-height: 1.08;
+  }
+
+  h2 {
+    margin: 0 0 12px;
+    font-size: clamp(26px, 2.2vw, 36px);
+    line-height: 1.2;
+  }
+
+  h3 {
+    margin: 0 0 8px;
+    font-size: clamp(20px, 1.6vw, 24px);
+    line-height: 1.25;
+  }
+
+  /* Paragraph readability: cap line length at ~70 characters */
+  p {
+    margin: 0 0 12px;
+    color: var(--muted);
+    max-width: 70ch;
+  }
+
+  /* Small text utility (captions, meta, footer) */
+  .small {
+    font-size: clamp(14px, 1vw, 16px);
+    color: var(--muted);
+  }
+
+  /* =========================================
+     Cards are given custom clamps of their own for dynamic scaling
+     ========================================= */
+  .hero {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: clamp(14px, 2.4vw, 24px);   /* Fluid padding */
+    box-shadow: var(--shadow);
+    margin-bottom: clamp(14px, 2.4vw, 22px);
+  }
+
+  /* Responsive grid: 1 column on mobile, no floats needed */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;   /* MOBILE FIRST: single column */
+    gap: 16px;                    /* Even spacing between cards */
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: clamp(12px, 2vw, 18px);  /* Fluid padding */
+    box-shadow: var(--shadow);
+  }
+
+  /* =========================================
+     Media queries remain used for grids to automatically sort them into columns depending on screen size
+     ========================================= */
+  @media (min-width: 720px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }  /* 2 columns */
+  }
+
+  @media (min-width: 980px) {
+    .grid { grid-template-columns: repeat(3, 1fr); }  /* 3 columns */
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 18px;
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+  }
